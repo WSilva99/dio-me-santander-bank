@@ -35,7 +35,7 @@ class CustomerTest {
         // Then
         assertEquals(expectedName, customer.name());
         assertEquals(expectedPhone, customer.phone());
-        assertEquals(expectedEmail, customer.email().email());
+        assertEquals(expectedEmail, customer.email().value());
         assertEquals(expectedAddress, customer.address().toString());
         assertNotNull(customer.createdAt());
         assertNotNull(customer.updatedAt());

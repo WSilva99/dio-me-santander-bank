@@ -11,7 +11,8 @@ public abstract class Account extends Entity {
     private String password;
     private BigDecimal balance;
     private String number;
-    private String customerId;
+    private String owner; // TODO: replace identifier
+
     private Type type;
 
     protected Account(
@@ -19,7 +20,7 @@ public abstract class Account extends Entity {
             final String password,
             final BigDecimal balance,
             final String number,
-            final String customerId,
+            final String owner,
             final Type type ) {
 
         super(id);
@@ -27,7 +28,7 @@ public abstract class Account extends Entity {
         this.password = password;
         this.balance = balance;
         this.number = number;
-        this.customerId = customerId;
+        this.owner = owner;
         this.type = type;
         this.updatedAt = now();
 
@@ -66,7 +67,7 @@ public abstract class Account extends Entity {
             throw new IllegalArgumentException("Number is required");
         }
 
-        if (this.customerId == null) {
+        if (this.owner == null) {
             throw new IllegalArgumentException("CustomerId is required");
         }
 
@@ -84,8 +85,8 @@ public abstract class Account extends Entity {
         return this.number;
     }
 
-    public String customerId() {
-        return this.customerId;
+    public String owner() {
+        return this.owner;
     }
 
     public Type type() {

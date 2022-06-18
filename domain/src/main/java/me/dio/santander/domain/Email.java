@@ -2,10 +2,10 @@ package me.dio.santander.domain;
 
 public class Email {
 
-    private String email;
+    private String value;
 
-    private Email(String email) {
-        this.email = email;
+    private Email(String value) {
+        this.value = value;
         this.validate();
     }
 
@@ -15,20 +15,24 @@ public class Email {
 
     public void validate() {
 
-        if (email == null || email.isEmpty()) {
+        if (value == null || value.isEmpty()) {
             throw new IllegalArgumentException("Email is required");
         }
 
-        final var regex = "^[\\w-\\+]+(\\.[\\w]+)*@[\\w-]+(\\.[\\w]+)*(\\.[a-z]{2,})$";
+        final var regex = "[^@ \\t\\r\\n]+@[^@ \\t\\r\\n]+\\.[^@ \\t\\r\\n]+";
 
-        if (!email.matches(regex)) {
+        if (!value.matches(regex)) {
             throw new IllegalArgumentException("Email is invalid");
         }
 
     }
 
-    public String email() {
-        return email;
+    public String value() {
+        return value;
+    }
+
+    public String toString() {
+        return value;
     }
 
 }

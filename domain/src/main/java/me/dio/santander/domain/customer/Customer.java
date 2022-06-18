@@ -40,6 +40,18 @@ final public class Customer extends Entity {
 
     }
 
+    public static Customer of(final String id, final String name, final String phone, final String email, final Address address) {
+
+        return new Customer(
+                id,
+                name,
+                phone,
+                Email.of(email),
+                address
+        );
+
+    }
+
     public Customer update(final String name, final String phone, final Email email, final Address address) {
 
         this.name = name;
