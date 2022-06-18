@@ -95,7 +95,7 @@ public abstract class Account extends Entity {
     enum Type {
         CHECKING,
         SAVINGS,
-        CREDIT
+        PAYMENT
     }
 
 }

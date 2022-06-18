@@ -4,17 +4,35 @@ import java.math.BigDecimal;
 
 public interface AccountFactory {
 
-    static Account of(String password, BigDecimal balance, String number, String customerId, Account.Type type) {
-        switch (type) {
-            case CHECKING:
-                return CheckingAccount.of(password, balance, number, customerId);
-            case SAVINGS:
-                return SavingsAccount.of(password, balance, number, customerId);
-            case CREDIT:
-                return CreditAccount.of(password, balance, number, customerId);
-            default:
-                throw new IllegalArgumentException("Unknown account type");
-        }
+    static PaymentAccount ofPayment(
+            final String password,
+            final BigDecimal balance,
+            final String number,
+            final String customerId) {
+
+        return PaymentAccount.of(password, balance, number, customerId);
+
+    }
+
+    static SavingsAccount ofSavings(
+            final String password,
+            final BigDecimal balance,
+            final String number,
+            final String customerId) {
+
+        return SavingsAccount.of(password, balance, number, customerId);
+
+    }
+
+    static CheckingAccount ofChecking(
+            final String password,
+            final BigDecimal balance,
+            final BigDecimal overdraftLimit,
+            final String number,
+            final String customerId) {
+
+        return CheckingAccount.of(password, balance, overdraftLimit, number, customerId);
+
     }
 
 }

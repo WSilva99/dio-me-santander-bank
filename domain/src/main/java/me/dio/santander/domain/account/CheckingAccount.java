@@ -4,31 +4,39 @@ import java.math.BigDecimal;
 
 public class CheckingAccount extends Account {
 
-    private CheckingAccount(String id, String password, BigDecimal balance, String number, String customerId) {
-        super(id, password, balance, number, customerId, Type.CHECKING);
+    private BigDecimal overdraftLimit;
+
+    private CheckingAccount(String id, String password, BigDecimal balance, BigDecimal overdraftLimit, String number, String customerId) {
+        super(id, password, balance, number, customerId, Type.PAYMENT);
+        this.overdraftLimit = overdraftLimit;
 
         this.validate();
     }
 
-    static CheckingAccount of(
-            final String password,
-            final BigDecimal balance,
-            final String number,
-            final String customerId
-    ) {
-        return new CheckingAccount(null, password, balance, number, customerId);
+    static CheckingAccount of(String password, BigDecimal balance, BigDecimal overdraftLimit, String number, String customerId) {
+        return new CheckingAccount(null, password, balance, overdraftLimit, number, customerId);
     }
 
-    @Override
-    public void transfer(Account anAccount, BigDecimal anAmount) {
-        throw new UnsupportedOperationException("Not supported this.");
+    public BigDecimal overdraftLimit() {
+        return overdraftLimit;
     }
 
-    @Override
     public void validate() {
-        if (this.balance().compareTo(BigDecimal.ZERO) < 0) {
-            throw new IllegalArgumentException("Balance cannot be negative");
+
+        if(overdraftLimit == null) {
+            throw new IllegalArgumentException("Overdraft limit is required");
         }
+
+        if(overdraftLimit.compareTo(BigDecimal.ZERO) < 0) {
+            throw new IllegalArgumentException("Overdraft limit cannot be negative");
+        }
+
+        final var limit = balance().add(overdraftLimit);
+
+        if (limit.compareTo(BigDecimal.ZERO) < 0) {
+            throw new IllegalArgumentException("Limit is unavailable");
+        }
+
     }
 
 }
