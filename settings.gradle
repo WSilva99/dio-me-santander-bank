@@ -1,0 +1,5 @@
+rootProject.name = 'dio-me-santander-bank'
+include 'domain'
+include 'application'
+include 'infra'
+
